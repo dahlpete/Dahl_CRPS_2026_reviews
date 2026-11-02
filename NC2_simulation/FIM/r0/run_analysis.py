@@ -1,13 +1,13 @@
 import numpy as np
-import photochem_turnover_test3 as hv
+import photochem_turnover as hv
 from matplotlib import pyplot as plt
 from scipy.optimize import minimize
-import product_formation6 as pf
+import product_formation as pf
 from scipy import interpolate as interp
 import time
 
 
-fIN = open('params_temp0.txt','r').readlines()
+fIN = open('params_0.txt','r').readlines()
 params = [float(line) for line in fIN];
 [kET,kHT2,kAET,kBET,khp2,khp3,khp4,kre,koa,k0] = params
 
@@ -32,7 +32,7 @@ start = time.time()
 
 print('Starting Integration...\n')
 
-[time_array,t2,vcat_array,vox_array,H2_array,NH3_array,D_array,A_array,D2_array,A2_array,population]=pf.product_formation(khp2,khp3,khp4,kre,koa,ttot*60,readrates=ratevals,secondary=secvals,paramfile='photochem_params_test2.txt',N2=pN2,H2atm=pH2,kto=k0)
+[time_array,t2,vcat_array,vox_array,H2_array,NH3_array,D_array,A_array,D2_array,A2_array,population]=pf.product_formation(khp2,khp3,khp4,kre,koa,ttot*60,readrates=ratevals,secondary=secvals,paramfile='photochem_params.txt',N2=pN2,H2atm=pH2,kto=k0)
 
 end = time.time(); elapsed=(end-start)/60
 print('Integration complete: time elapsed = %.3f min' % elapsed)
@@ -84,7 +84,7 @@ for i in range(len(evals)):
 	pN2 = 1.00
 	pH2 = 0.00
 
-	[time_array,t2,vcat_array,vox_array,H2_array,NH3_array,D_array,A_array,D2_array,A2_array,population]=pf.product_formation(khp2,khp3,khp4,kre,koa,ttot*60,readrates=ratevals,secondary=secvals,paramfile='photochem_params_test2.txt',N2=pN2,H2atm=pH2,kto=k0)
+	[time_array,t2,vcat_array,vox_array,H2_array,NH3_array,D_array,A_array,D2_array,A2_array,population]=pf.product_formation(khp2,khp3,khp4,kre,koa,ttot*60,readrates=ratevals,secondary=secvals,paramfile='photochem_params.txt',N2=pN2,H2atm=pH2,kto=k0)
 
 	evals[i] = 3*NH3_array[-1] + 2*H2_array[-1]; nh3vals[i] = NH3_array[-1]; h2vals[i] = H2_array[-1]
 
